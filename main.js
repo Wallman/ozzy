@@ -84,21 +84,10 @@ function playTone(synth, tone, duration){
   synth.triggerAttackRelease(tone, duration);
 }
 
-function toggleLead(){
+function toggleMatrix(matrix){
   clearActive();
-  document.querySelector("#matrix1").classList.add("active");
+  document.querySelector(matrix).classList.add("active");
 }
-
-function toggleChords(){
-  clearActive();
-  document.querySelector("#matrix2").classList.add("active");
-}
-
-function toggleRhythm(){
-  clearActive();
-  document.querySelector("#matrix3").classList.add("active");
-}
-
 function clearActive(){
   document.querySelector('.active').classList.remove("active");
 }
