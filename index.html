@@ -1,12 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title></title>
+        <title>Ljudgui</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="style.css" rel="stylesheet">
     </head>
     <body>
-        <canvas id="myCanvas" width="200px" height="200px"></canvas>
+        <div class="matrixContainer">
+            <canvas id="matrix1" nx="matrix" class="matrix active"></canvas>
+            <canvas id="matrix2" nx="matrix" class="matrix"></canvas>
+            <canvas id="matrix3" nx="matrix" class="matrix"></canvas>
+        </div>
+        <button id="playBtn" onclick="startSequence()">Play</button>
+        <button id="stopBtn" onclick="stopSequence()">Stop</button>
+        <button onclick="toggleLead()">Lead</button>
+        <button onclick="toggleChords()">Chords</button>
+        <button onclick="toggleRhythm()">Rhythm</button>
+
+        <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+        <script src="nexusUI.js"></script>
+        <script src="Tone.min.js"></script>
+        <script src="main.js"></script>
     </body>
 </html>
