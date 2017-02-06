@@ -2,8 +2,8 @@ var _matrixes;
 var _poly = new Tone.PolySynth().toMaster();
 var _mono = new Tone.MonoSynth().toMaster();
 var _CMaj = [ "C5", "B4", "A4", "G4", "F4", "E4", "D4", "C4" ];
-var _chords = [["C4", "E4", "G4"], ["D4", "F#4", "A4"], ["E4", "G#4", "B4"], ["G4", "B4", "D4"]]
-//                  CMaj                  DMaj                 EMaj                GMaj
+var _chords = [["C4", "E4", "G4"], ["A3", "C4", "E4"], ["F4", "A3", "C4"], ["G4", "B4", "D4"]]
+//                  CMaj                  Am                 FMaj                GMaj
 
 nx.onload = function(){
   init();
