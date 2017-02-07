@@ -1,9 +1,11 @@
 var _matrixes;
 var _poly = new Tone.PolySynth().toMaster();
 var _mono = new Tone.MonoSynth().toMaster();
+var _membrane = new Tone.MembraneSynth().toMaster();
 var _CMaj = [ "C5", "B4", "A4", "G4", "F4", "E4", "D4", "C4" ];
+var _CMajRhythm = [ "C3", "B2", "A2", "G2", "F2", "E2", "D2", "C2" ];
 var _chords = [["C4", "E4", "G4"], ["A3", "C4", "E4"], ["F4", "A3", "C4"], ["G4", "B4", "D4"]]
-//                  CMaj                  Am                 FMaj                GMaj
+//                    C                  Am                   F                  G
 
 nx.onload = function(){
   init();
@@ -30,8 +32,8 @@ function init(){
   // Not finished
   matrix3.row = 8;
   matrix3.col = 8;
-  matrix3.synth = null;
-  matrix3.scale = null;
+  matrix3.synth = _membrane;
+  matrix3.scale = _CMajRhythm;
   matrix3.colors.accent = "#00CCFF";
   matrix3.init();
 
@@ -60,7 +62,7 @@ function registerBeat(row, col, matrix){
   var start = "0:0:" + col / matrix.col * 16; // Start-beat in 16th notes.
 
   Tone.Transport.scheduleRepeat(function(time){
-    _poly.triggerAttackRelease(matrix.scale[row], duration, time);
+    matrix.synth.triggerAttackRelease(matrix.scale[row], duration, time);
   }, "1m", start);
 }
 
