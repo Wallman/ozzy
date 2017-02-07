@@ -32,6 +32,7 @@ button {
 }
 .button-container{
     margin-left: 5%;
+    margin-top: 20px;
 }
 .stop-button {
     background-color: red;
