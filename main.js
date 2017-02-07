@@ -12,6 +12,7 @@ var _fatSynth = new Tone.PolySynth(3, Tone.Synth, {
 				"release": 0.4,
 				"attackCurve" : "exponential"
 			},
+      "volume": -10
 		}).toMaster();
 
 var _mono = new Tone.MonoSynth().toMaster();
@@ -42,7 +43,9 @@ var _CMajRhythm = [ "F3", "E3", "D3", "C3" ];
 var _chords = [["C4", "E4", "G4"], ["G3", "B3", "D4"], ["F3", "A3", "C4"], ["C3", "E3", "G3"]]
 //                     C                   G                   F                   C
 
+// Global variables
 var _matrixes;
+var _soundEvents;
 
 nx.onload = function(){
   init();
@@ -51,6 +54,7 @@ nx.onload = function(){
 
 function init(){
   _matrixes = [matrix1, matrix2, matrix3];
+  _soundEvents = [];
   Tone.Transport.bpm.value = 100;
 
   matrix1.row = 8;
@@ -80,6 +84,7 @@ function init(){
     element.on("*", function(data){
       if(data.row != undefined){
         playTone(element.synth, element.scale[data.row], element.col + "n");
+        Tone.Transport.stop();
       }
   });
   }, this);
@@ -99,9 +104,10 @@ function registerBeat(row, col, matrix){
   var duration = matrix.col + "n";
   var start = "0:0:" + col / matrix.col * 16; // Start-beat in 16th notes.
 
-  Tone.Transport.scheduleRepeat(function(time){
+  let id = Tone.Transport.scheduleRepeat(function(time){
     matrix.synth.triggerAttackRelease(matrix.scale[row], duration, time);
   }, "1m", start);
+  _soundEvents.push(id);
 }
 
 function startSequence(){
@@ -114,9 +120,14 @@ function startSequence(){
 
 function resetSequence(){
   Tone.Transport.seconds = "0";
+  _soundEvents.forEach(function(element) {
+    Tone.Transport.clear(element);
+  }, this);
+  _soundEvents = [];
 }
 
 function stopSequence(){
+  resetSequence();
   Tone.Transport.stop();
 }
 
