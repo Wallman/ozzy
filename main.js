@@ -39,8 +39,8 @@ var _hihat = new Tone.MetalSynth({
 // Scales
 var _CMaj = [ "C5", "B4", "A4", "G4", "F4", "E4", "D4", "C4" ];
 var _CMajRhythm = [ "F3", "E3", "D3", "C3" ];
-var _chords = [["C4", "E4", "G4"], ["A3", "C4", "E4"], ["F4", "A3", "C4"], ["G4", "B4", "D4"]]
-//                    C                  Am                   F                  G
+var _chords = [["C4", "E4", "G4"], ["G3", "B3", "D4"], ["F3", "A3", "C4"], ["C3", "E3", "G3"]]
+//                     C                   G                   F                   C
 
 var _matrixes;
 
