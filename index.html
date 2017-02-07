@@ -7,16 +7,19 @@
         <link href="style.css" rel="stylesheet">
     </head>
     <body>
-        <div class="matrixContainer">
+        <div class="matrix-container">
             <canvas id="matrix1" nx="matrix" class="matrix active"></canvas>
             <canvas id="matrix2" nx="matrix" class="matrix"></canvas>
             <canvas id="matrix3" nx="matrix" class="matrix"></canvas>
         </div>
-        <button id="playBtn" onclick="startSequence()">Play</button>
-        <button id="stopBtn" onclick="stopSequence()">Stop</button>
-        <button onclick="toggleMatrix('#matrix1')">Lead</button>
-        <button onclick="toggleMatrix('#matrix2')">Chords</button>
-        <button onclick="toggleMatrix('#matrix3')">Rhythm</button>
+            <div class="button-container">
+            <button class="button" onclick="startSequence()">Play</button>
+            <button class="button stop-button" onclick="stopSequence()">Stop</button>
+
+            <button class="button lead-button" onclick="toggleMatrix('#matrix1')">Lead</button>
+            <button class="button chords-button" onclick="toggleMatrix('#matrix2')">Chords</button>
+            <button class="button rhythm-button" onclick="toggleMatrix('#matrix3')">Rhythm</button>
+        </div>
 
         <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
         <script src="nexusUI.js"></script>
