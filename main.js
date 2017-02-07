@@ -1,11 +1,48 @@
-var _matrixes;
-var _poly = new Tone.PolySynth().toMaster();
+// Synths
+var _fatSynth = new Tone.PolySynth(3, Tone.Synth, {
+			"oscillator" : {
+				"type" : "fatsawtooth",
+				"count" : 3,
+				"spread" : 30
+			},
+			"envelope": {
+				"attack": 0.01,
+				"decay": 0.1,
+				"sustain": 0.5,
+				"release": 0.4,
+				"attackCurve" : "exponential"
+			},
+		}).toMaster();
+
 var _mono = new Tone.MonoSynth().toMaster();
-var _membrane = new Tone.MembraneSynth().toMaster();
+
+var _bass = new Tone.MembraneSynth({
+			"pitchDecay" : 0.008,
+			"octaves" : 2,
+			"envelope" : {
+				"attack" : 0.0006,
+				"decay" : 0.5,
+				"sustain" : 0
+			}
+		}).toMaster();
+
+var _hihat = new Tone.MetalSynth({
+			"harmonicity" : 12,
+			"resonance" : 800,
+			"modulationIndex" : 20,
+			"envelope" : {
+				"decay" : 0.4,
+			},
+			"volume" : -15
+		}).toMaster();
+
+// Scales
 var _CMaj = [ "C5", "B4", "A4", "G4", "F4", "E4", "D4", "C4" ];
-var _CMajRhythm = [ "C3", "B2", "A2", "G2", "F2", "E2", "D2", "C2" ];
+var _CMajRhythm = [ "F3", "E3", "D3", "C3" ];
 var _chords = [["C4", "E4", "G4"], ["A3", "C4", "E4"], ["F4", "A3", "C4"], ["G4", "B4", "D4"]]
 //                    C                  Am                   F                  G
+
+var _matrixes;
 
 nx.onload = function(){
   init();
@@ -24,15 +61,15 @@ function init(){
 
   matrix2.row = 4;
   matrix2.col= 4;
-  matrix2.synth = _poly;
+  matrix2.synth = _fatSynth;
   matrix2.scale = _chords;
   matrix2.colors.accent = "#03EAFF";
   matrix2.init();
 
-  // Not finished
-  matrix3.row = 8;
+
+  matrix3.row = 4;
   matrix3.col = 8;
-  matrix3.synth = _membrane;
+  matrix3.synth = _bass;
   matrix3.scale = _CMajRhythm;
   matrix3.colors.accent = "#00CCFF";
   matrix3.init();
