@@ -4,8 +4,8 @@ var _mono = new Tone.MonoSynth().toMaster();
 var _membrane = new Tone.MembraneSynth().toMaster();
 var _CMaj = [ "C5", "B4", "A4", "G4", "F4", "E4", "D4", "C4" ];
 var _CMajRhythm = [ "C3", "B2", "A2", "G2", "F2", "E2", "D2", "C2" ];
-var _chords = [["C4", "E4", "G4"], ["A3", "C4", "E4"], ["F4", "A3", "C4"], ["G4", "B4", "D4"]]
-//                    C                  Am                   F                  G
+var _chords = [["C4", "E4", "G4"], ["G3", "B3", "D4"], ["F3", "A3", "C4"], ["C3", "E3", "G3"]]
+//                     C                   G                   F                   C
 
 nx.onload = function(){
   init();
