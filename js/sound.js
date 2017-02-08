@@ -58,7 +58,7 @@ var _drums = new Tone.MultiPlayer({
         "C" : "audio/kick.wav",
         "D" : "audio/snare.wav",
         "E" : "audio/hihat.wav",
-        "F" : "audio/cowbell.wav",
+        "F" : "audio/click.wav",
       },
       volume : -10,
       fadeOut : 0.1,
