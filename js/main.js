@@ -134,7 +134,7 @@ function draggieSingOnce() {
 
 function draggieSing() {
   var draggie = $(this).data('draggabilly');
-  _draggieSynth.vibratoAmount.value = vibratoIndex;
+  _draggieSynth.vibratoAmount.value = draggie.position.y / -132 + 0.8;
 
   var toneIndex = Math.ceil(draggie.position.x / 12) + 7;
   if (toneIndex != _draggieTone) {
