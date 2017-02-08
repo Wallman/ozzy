@@ -23,9 +23,9 @@ var _fatSynth = new Tone.PolySynth(3, Tone.Synth, {
       "volume": -20
 		}).connect(compressor);
 
-var _mono = new Tone.MonoSynth({
+var _lead = new Tone.PolySynth(8, Tone.AMSynth, {
   "oscillator": {
-  "type": "sine",
+  "type": "square",
   },
   "filter": {
   "Q": 6,
@@ -47,7 +47,7 @@ var _mono = new Tone.MonoSynth({
   "octaves": 7,
   "exponent": 2,
   },
-  "volume": -20
+  "volume": -10
 }).connect(compressor);
 
 var _drums = new Tone.MultiPlayer({
@@ -83,7 +83,7 @@ function init(){
 
   matrix1.row = 8;
   matrix1.col = 16;
-  matrix1.synth = _mono;
+  matrix1.synth = _lead;
   matrix1.scale = _CMaj; // Tilldelar matrix en skala.
   matrix1.colors.accent = "#FF00CC";
   matrix1.init();
@@ -104,12 +104,19 @@ function init(){
 
   // Listener for when cell is pressed.
   _matrixes.forEach(function(element) {
-    element.on("*", function(data){
-      if(data.row != undefined){
-        playTone(element.synth, element.scale[data.row], element.col + "n");
-        stopSequence();
+    element.on("*", function(data) {
+      if (Tone.Transport.state === "started"){
+        if (data.level === 1) {
+          registerBeat(data.row, data.col, element);
+        }
+        else {
+          deregisterBeat(data.row, data.col, element);
+        }
       }
-  });
+      else {
+        playTone(element.synth, element.scale[data.row], element.col + "n");
+      }
+    });
   }, this);
 }
 
@@ -136,7 +143,23 @@ function registerBeat(row, col, matrix){
       matrix.synth.triggerAttackRelease(matrix.scale[row], duration, time);
     }
   }, "1m", start);
-  _soundEvents.push(id);
+  _soundEvents.push({
+    id: id, 
+    matrix: matrix, 
+    row: row, 
+    col: col
+  });
+}
+
+function deregisterBeat(row, col, matrix){
+  for (var i = _soundEvents.length - 1; i >= 0; i--) {
+    let temp = _soundEvents[i];
+    if (matrix === temp.matrix && row === temp.row && col === temp.col) {
+      Tone.Transport.clear(temp.id);
+      _soundEvents.splice(i, 1);
+      break;
+    }
+  }
 }
 
 function startSequence(){
@@ -150,7 +173,7 @@ function startSequence(){
 function resetSequence(){
   Tone.Transport.seconds = "0";
   _soundEvents.forEach(function(element) {
-    Tone.Transport.clear(element);
+    Tone.Transport.clear(element.id);
   }, this);
   _soundEvents = [];
 }
