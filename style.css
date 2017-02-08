@@ -4,7 +4,7 @@ body {
 
 .matrix{
     position: absolute;
-    width: 90%;
+    width: 65%;
     height: 400px;
     opacity: 0.5;
     z-index: 0;
@@ -12,11 +12,33 @@ body {
 .matrix-container{
     position: relative;
     margin-left: 5%;
+    margin-right: 5%;
     margin-top: 60px;
     height: 400px;
 }
 .matrix.active {
     z-index: 1;
+    opacity: 0.6;
+}
+.draggable-container {
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    background-color: #D6D6D6;
+    border-radius: 20px;
+    top: 100px;
+    right: 50px;
+}
+.draggable {
+    width: 20px;
+    height: 20px;
+    align-self: center;
+    border-radius: 100%;
+    background-color: white;
+    border: 2px solid black;
+    z-index: 2;
 }
 button {
     background-color: green;
@@ -41,9 +63,9 @@ button {
     margin-left: 7%;
     background-color: #D300FF;
 }
-.chords-button {
-    background-color: #FFBF19;
+.bass-button {
+    background-color: #08875c;
 }
 .rhythm-button {
-    background-color: #09B27A;
+    background-color: #FFBF19;
 }
