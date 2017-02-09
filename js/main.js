@@ -7,7 +7,12 @@ var $draggable = $('.draggable').draggabilly({
 var _draggieTone = 8;
 
 $(function(){
-  init();
+  try {
+    init(); 
+  }
+  catch (err) {
+    alert('Ett problem (error: "'+ err +'") uppstod när sidan laddes. Vänligen uppdatera sidan.');
+  }
   createListeners();
 });
 
