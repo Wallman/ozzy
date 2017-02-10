@@ -90,9 +90,6 @@ button:active {
 
 /*Desktop*/
 @media screen and (min-width: 737px) {
-    body {
-        background-color: lightgreen;
-    }
     .rotate-message {
         display: none;
     }
@@ -122,9 +119,6 @@ button:active {
 }
 /*Mobile device landscape*/
 @media screen and (max-width: 736px) and (orientation:landscape) {
-    body {
-        background-color: lightcoral;
-    }
     .rotate-message {
         display: none;
     }
