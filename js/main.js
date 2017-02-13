@@ -6,7 +6,7 @@ var $draggable = $('.draggable').draggabilly({
 });
 var _draggieTone = 8;
 
-$(function(){
+nx.onload = function(){
   try {
     init(); 
   }
@@ -14,7 +14,7 @@ $(function(){
     alert('Ett problem (error: "'+ err +'") uppstod när sidan laddes. Vänligen uppdatera sidan.');
   }
   createListeners();
-});
+};
 
 function init(){
   // Matrixes are automatically collected through NexusUI.js.
