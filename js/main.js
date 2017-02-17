@@ -9,6 +9,7 @@ var _draggieTone = 8;
 nx.onload = function(){
   try {
     init(); 
+    registerSequencer();
   }
   catch (err) {
     alert('Ett problem (error: "'+ err +'") uppstod när sidan laddes. Vänligen uppdatera sidan.');
@@ -102,6 +103,20 @@ function deregisterBeat(row, col, matrix){
 
 function startSequence(){
   Tone.Transport.start("+0.1");
+}
+
+function registerSequencer(){
+  // Position comes in format Bars:Fourths:Sixteenths
+  for (var i = 0; i < matrix1.matrix.length; i++) {
+    Tone.Transport.scheduleRepeat(function(time){
+      // Save position before delay
+      var position = Tone.Transport.position;
+      var fourths = Number(position.substr(position.indexOf(":")+1, 1));
+      var sixteenths = Number(position.substr(position.lastIndexOf(":")+1, 1)) + fourths*4;
+      matrix1.jumpToCol(sixteenths);
+      matrix3.jumpToCol(sixteenths);
+    }, "1m", "0:0:"+i);
+  }
 }
 
 function stopSequence(){
