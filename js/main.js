@@ -122,6 +122,8 @@ function registerSequencer(){
 function stopSequence(){
   Tone.Transport.stop();
   Tone.Transport.seconds = "0";
+  matrix1.jumpToCol(0);
+  matrix3.jumpToCol(0);
 }
 
 // Plays a tone when the sequence is not playing.
