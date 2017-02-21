@@ -75,6 +75,13 @@ function createListeners(){
   $draggable.on('pointerDown', draggieSingOnce);
   $draggable.on('dragMove', draggieSing);
   $draggable.on('pointerUp', draggieStopSinging);
+
+  // Add button listeners
+  document.querySelector("#playBtn").addEventListener("click", startSequence);
+  document.querySelector("#stopBtn").addEventListener("click", stopSequence);
+  document.querySelector("#leadBtn").addEventListener("click", function(){ toggleMatrix("matrix1")});
+  document.querySelector("#bassBtn").addEventListener("click", function(){ toggleMatrix("matrix2")});
+  document.querySelector("#rhythmBtn").addEventListener("click", function(){ toggleMatrix("matrix3")});
 }
 
 function registerBeat(row, col, matrix){
@@ -149,7 +156,7 @@ function playTone(synth, tone, duration){
 
 function toggleMatrix(matrix){
   clearActive();
-  document.querySelector(matrix).classList.add("active");
+  document.querySelector(`#${matrix}`).classList.add("active");
 }
 
 function clearActive(){
