@@ -7,6 +7,7 @@ var $draggable = $('.draggable').draggabilly({
 var _draggieTone = 8;
 
 nx.onload = function(){
+  checkBrowser();
   try {
     init(); 
     registerSequencer();
@@ -16,6 +17,13 @@ nx.onload = function(){
   }
   createListeners();
 };
+
+function checkBrowser(){
+  let isChrome = !!window.chrome && !!window.chrome.webstore;
+  if(!isChrome){
+    alert("This app works best with Google Chrome, some features may not work in other browsers.")
+  }
+}
 
 function init(){
   // Matrixes are automatically collected through NexusUI.js.
