@@ -42,7 +42,7 @@ function init(){
   matrix2.col= 8;
   matrix2.synth = _bass;
   matrix2.scale = _bassCMaj;
-  matrix2.colors.accent = "#08875c";
+  matrix2.colors.accent = "#077750";
   matrix2.init();
 
   matrix3.row = 4;
@@ -65,7 +65,7 @@ function createListeners(){
       }
 
       // If the sequence is not started, play tone anyway.
-      if (Tone.Transport.state != "started"){
+      if (Tone.Transport.state != "started" && data.row != undefined){
         playTone(element.synth, element.scale[data.row], element.col + "n");
       }
     });
@@ -83,6 +83,7 @@ function createListeners(){
   document.querySelector("#bassBtn").addEventListener("click", function(){ toggleMatrix("matrix2")});
   document.querySelector("#rhythmBtn").addEventListener("click", function(){ toggleMatrix("matrix3")});
   document.querySelector("#scaleBtn").addEventListener("click", changeScale); 
+  document.querySelector("#resetBtn").addEventListener("click", reset); 
 }
 
 function registerBeat(row, col, matrix){
@@ -90,8 +91,7 @@ function registerBeat(row, col, matrix){
   var start = "0:0:" + col / matrix.col * 16; // Start-beat in 16th notes.
   
   let id = Tone.Transport.scheduleRepeat(function(time){
-    if (matrix.synth === _drums)
-    {
+    if (matrix.synth === _drums) {
       matrix.synth.start(matrix.scale[row], time);
     }
     else {
@@ -119,6 +119,7 @@ function deregisterBeat(row, col, matrix){
 
 function startSequence(){
   Tone.Transport.start("+0.1");
+  console.log(_soundEvents);
 }
 
 function registerSequencer(){
@@ -162,6 +163,17 @@ function changeScale(){
   _draggieToneLibrary = nextScale.draggieScale;
   document.querySelector("#scaleBtn").innerHTML = nextScale.scaleBtnText;
   _scaleQueue.push(nextScale); //pushes nextScale to the end of _scaleQueue
+}
+
+// clears all graphical matrixes and all the registered tones
+// _soundEvents become an empty array again
+// also stops the sequence
+function reset(){
+  let temp = _soundEvents.slice();
+  temp.forEach(function(element){
+    deregisterBeat(element.row, element.col, element.matrix); // remove registered tone
+    element.matrix.setCell(element.col, element.row, false); // clear matrix cell
+  });
 }
 
 // GUI
