@@ -122,13 +122,29 @@ var _draggieSynth = new Tone.DuoSynth({
     }
 }).fan(_delay, _compressor);
 
-// Scales
-var _CMaj = [ "C6", "B5", "A5", "G5", "F5", "E5", "D5", "C5" ];
+// Scales, storing individual tones as strings in arrays
+// CMaj = C Major, CMin = C Minor
+var _leadCMaj = [ "C6", "B5", "A5", "G5", "F5", "E5", "D5", "C5" ];
+var _leadCMin = [ "C6", "Bb5", "Ab5", "G5", "F5", "Eb5", "D5", "C5" ];
 var _CMajDrums = [ "F", "E", "D", "C" ];
 var _bassCMaj = [ "C3", "B2", "A2", "G2", "F2", "E2", "D2", "C2" ];
-//var _chords = [["G3", "B3", "D4"], ["F3", "A3", "C4"], ["E3", "G3", "B3"], ["C3", "E3", "G3"]]
-//                     G                   F                   Em                   C
-var draggieToneLibrary = 
-["B3", "C4", "D4", "E4", "F4", "G4", "A4", "B4", 
-"C5", "D5", "E5", "F5", "G5", "A5", "B5", 
-"C6"];
+var _bassCMin = [ "C3", "Bb2", "Ab2", "G2", "F2", "Eb2", "D2", "C2" ];
+var _draggieCMaj = 
+  ["B3", "C4", "D4", "E4", "F4", "G4", "A4", "B4", 
+  "C5", "D5", "E5", "F5", "G5", "A5", "B5", 
+  "C6"];
+var _draggieCMin = 
+  ["Bb3", "C4", "D4", "Eb4", "F4", "G4", "Ab4", "Bb4", 
+  "C5", "D5", "Eb5", "F5", "G5", "Ab5", "Bb5", 
+  "C6"];
+
+//set the initial scale for _draggieToneLibrary
+var _draggieToneLibrary = _draggieCMaj;
+
+// declare scale objects containing the relevant scales for the instruments
+// also contains the corresponding button text for the scaleBtn
+var _CMaj = { leadScale: _leadCMaj, bassScale: _bassCMaj, draggieScale: _draggieCMaj, scaleBtnText: ":)" };
+var _CMin = { leadScale: _leadCMin, bassScale: _bassCMin, draggieScale: _draggieCMin, scaleBtnText: ":(" };
+
+// put scale objects in the _scaleQueue
+var _scaleQueue = [ _CMin, _CMaj ];

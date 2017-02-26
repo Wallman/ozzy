@@ -34,7 +34,7 @@ function init(){
   matrix1.row = 8;
   matrix1.col = 16;
   matrix1.synth = _lead; // Synths are created in sound.js
-  matrix1.scale = _CMaj; // Skapar attributet scale.
+  matrix1.scale = _leadCMaj; // Skapar attributet scale.
   matrix1.colors.accent = "#FF00CC";
   matrix1.init();
 
@@ -82,6 +82,7 @@ function createListeners(){
   document.querySelector("#leadBtn").addEventListener("click", function(){ toggleMatrix("matrix1")});
   document.querySelector("#bassBtn").addEventListener("click", function(){ toggleMatrix("matrix2")});
   document.querySelector("#rhythmBtn").addEventListener("click", function(){ toggleMatrix("matrix3")});
+  document.querySelector("#scaleBtn").addEventListener("click", changeScale); 
 }
 
 function registerBeat(row, col, matrix){
@@ -152,6 +153,17 @@ function playTone(synth, tone, duration){
   }
 }
 
+// changes the scale of matrix 1 (lead), matrix 2 (bass) and the draggieSynth. 
+// Utilizes the queue _scaleQueue which is declared in sound.js
+function changeScale(){
+  let nextScale = _scaleQueue.shift(); //takes out the first scale in _scaleQueue
+  matrix1.scale = nextScale.leadScale;
+  matrix2.scale = nextScale.bassScale;
+  _draggieToneLibrary = nextScale.draggieScale;
+  document.querySelector("#scaleBtn").innerHTML = nextScale.scaleBtnText;
+  _scaleQueue.push(nextScale); //pushes nextScale to the end of _scaleQueue
+}
+
 // GUI
 
 function toggleMatrix(matrix){
@@ -164,9 +176,8 @@ function clearActive(){
 }
 
 //Solo-Draggie functionality
-
 function draggieSingOnce() {
-  _draggieSynth.triggerAttack(draggieToneLibrary[_draggieTone]);
+  _draggieSynth.triggerAttack(_draggieToneLibrary[_draggieTone]);
 }
 
 function draggieSing() {
@@ -175,7 +186,7 @@ function draggieSing() {
 
   var toneIndex = Math.ceil(draggie.position.x / 12) + 7;
   if (toneIndex != _draggieTone) {
-    _draggieSynth.setNote(draggieToneLibrary[toneIndex]);
+    _draggieSynth.setNote(_draggieToneLibrary[toneIndex]);
     _draggieTone = toneIndex;
   }
   // Makes the box shake when dragged to top-right corner

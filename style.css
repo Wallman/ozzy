@@ -30,7 +30,7 @@ h1 {
     opacity: 0.6;
 }
 .draggable-container {
-    display: flex;
+    display: none;
     justify-content: center;
     position: absolute;
     width: 13%;
@@ -53,13 +53,15 @@ button {
     background-color: green;
     border: none;
     color: white;
-    padding: 10px 25px;
+    padding: 10px 0px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
-    margin: 4px 2px;
+    margin: 4px 3px;
     cursor: pointer;
+    width: 80px;
+    border-radius: 5px;
 }
 
 button:focus {
@@ -73,12 +75,13 @@ button:active {
 .button-container{
     margin-left: 10px;
     margin-top: 5px;
+    width: 83%;
 }
 .stop-button {
     background-color: red;
 }
 .lead-button {
-    margin-left: 7%;
+    margin-left: 8%;
     background-color: #D300FF;
 }
 .bass-button {
@@ -86,6 +89,10 @@ button:active {
 }
 .rhythm-button {
     background-color: #FFBF19;
+}
+.scale-button {
+    margin-left: 8%; 
+    background-color: #436ae0;
 }
 
 /*Desktop*/
@@ -112,6 +119,7 @@ button:active {
     width: 70%;
     }
     .draggable-container {
+    display: flex;
     width: 200px;
     height: 200px;
     right: 5%;
