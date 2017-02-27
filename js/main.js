@@ -26,6 +26,10 @@ function checkBrowser(){
 }
 
 function init(){
+  // Start audio context, this is needed for sound to be turned on in mobile iOS environments 
+  // Uses StartAudioContext.js
+  StartAudioContext(Tone.context);
+
   // Matrixes are automatically collected through NexusUI.js.
   _matrixes = [matrix1, matrix2, matrix3];
   _soundEvents = [];
@@ -119,7 +123,6 @@ function deregisterBeat(row, col, matrix){
 
 function startSequence(){
   Tone.Transport.start("+0.1");
-  console.log(_soundEvents);
 }
 
 function registerSequencer(){
