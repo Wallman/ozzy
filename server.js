@@ -15,7 +15,7 @@ app.post('/:base64string', (req, res) => {
 
 })
 
-var server = app.listen(3000, function () {
+var server = app.listen(8080, function () {
    let host = server.address().address
    let port = server.address().port
    
