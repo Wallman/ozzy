@@ -4,7 +4,10 @@
   "description": "Interactive music app.",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "npm run watch-css & nodemon server.js",
+    "build-css": "node-sass --include-path scss scss/test.scss public/css/test.css",
+    "watch-css": "nodemon -e scss -x \"npm run build-css\""
   },
   "repository": {
     "type": "git",
@@ -21,5 +24,9 @@
   "homepage": "https://github.com/Wallman/ozzy#readme",
   "dependencies": {
     "express": "^4.14.1"
+  },
+  "devDependencies": {
+    "node-sass": "^4.5.0",
+    "nodemon": "^1.11.0"
   }
 }
