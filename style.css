@@ -136,12 +136,8 @@ button:active {
 }
 /*Mobile device portrait*/
 @media screen and (max-width: 736px) and (orientation:portrait) {
-    .matrix-container {
-        display: none;
-    }
-    .button-container {
-        display: none;
-    }
+    .matrix-container { display: none; }
+    .button-container { display: none; }
     .rotate-message {
         width: 90%;
         text-align: center;
