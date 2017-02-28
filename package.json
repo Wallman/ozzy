@@ -1,0 +1,25 @@
+{
+  "name": "ozzy",
+  "version": "1.0.0",
+  "description": "Interactive music app.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Wallman/ozzy.git"
+  },
+  "keywords": [
+    "music"
+  ],
+  "author": "Daniel Wallman & Viktor Sandström",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Wallman/ozzy/issues"
+  },
+  "homepage": "https://github.com/Wallman/ozzy#readme",
+  "dependencies": {
+    "express": "^4.14.1"
+  }
+}
