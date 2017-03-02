@@ -1,0 +1,60 @@
+$desktop: "(min-width: 736px)";
+$mobile-portrait: "(max-width: 736px) and (orientation:portrait)";
+$mobile-landscape: "(max-width: 736px) and (orientation:landscape)";
+
+@import "reset";
+@import "matrix";
+@import "draggie";
+@import "button";
+
+// Mobile device
+body {
+    background-color: #333;
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    overflow: hidden;
+}
+h1 {
+    float: right;
+    font-size: 1.8em;
+    color: white;
+    letter-spacing: 2px;
+    margin: 0 5px 0 0;
+}
+/*Desktop*/
+@media #{$desktop} {
+    .rotate-message {
+        display: none;
+    }
+    h1 {
+        font-size: 4em;
+        margin-left: 5%;
+        margin-top: 30px;
+        margin-bottom: 0;
+        padding-bottom: 0;
+        float: none;
+    }
+    .button-container{
+        margin-left: 5%;
+        margin-top: 20px;
+    }
+}
+/*Mobile device landscape*/
+@media #{$mobile-landscape} {
+    .rotate-message {
+        display: none;
+    }
+}
+/*Mobile device portrait*/
+@media #{$mobile-portrait} {
+    .rotate-message {
+        width: 90%;
+        text-align: center;
+        margin-left: 5%;
+        margin-top: 100px;
+        padding: 5px 0 5px 0;
+        border-radius: 5px;
+        background-color: lightgrey;
+        display: block;
+    }
+}

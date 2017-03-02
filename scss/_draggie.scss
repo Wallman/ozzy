@@ -1,0 +1,38 @@
+// Mobile device
+.draggable-container {
+    display: none;
+    justify-content: center;
+    position: absolute;
+    width: 13%;
+    height: 23vh;
+    background-color: #D6D6D6;
+    border-radius: 20px;
+    top: 30vh;
+    right: 10px;
+}
+.draggable {
+    width: 20px;
+    height: 20px;
+    align-self: center;
+    border-radius: 100%;
+    background-color: white;
+    border: 2px solid black;
+    z-index: 2;
+}
+/*Desktop*/
+@media #{$desktop} {
+    .draggable-container {
+        display: flex;
+        width: 200px;
+        height: 200px;
+        right: 5%;
+    }
+}
+/*Mobile device landscape*/
+@media #{$mobile-landscape} {
+
+}
+/*Mobile device portrait*/
+@media #{$mobile-portrait} {
+
+}
