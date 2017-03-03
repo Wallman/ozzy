@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "npm run watch-css & nodemon server.js",
-    "build-css": "node-sass --include-path scss scss/test.scss public/css/test.css",
+    "build-css": "node-sass --include-path scss scss/style.scss public/css/style.css",
     "watch-css": "nodemon -e scss -x \"npm run build-css\""
   },
   "repository": {
@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/Wallman/ozzy#readme",
   "dependencies": {
+    "body-parser": "^1.17.0",
     "express": "^4.14.1"
   },
   "devDependencies": {
