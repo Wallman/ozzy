@@ -221,13 +221,20 @@ function draggieStopSinging() {
 
 // Other
 function share(){
-  let data = []
-  _matrixes.forEach(function(matrix) {
-    data.push(matrix.matrix)
-  }, this)
-  httpPostAsync("/share", data, (res) => { console.log(res) })
+  let song = {
+    created: new Date(),
+    matrixes: {
+      lead: _matrixes[0].matrix,
+      bass: _matrixes[1].matrix,
+      rhythm: _matrixes[2].matrix
+    }
+  }
+  // for (var i = 0; i < _matrixes.length; ++i)
+  //   if (_matrixes[i] !== undefined) song.matrixes[i] = _matrixes[i].matrix
+  console.log(song)
+  httpPostAsync("/share", JSON.stringify(song), (res) => { console.log(res) })
 }
-
+// HTTP-POST for JSON
 function httpPostAsync(url, data, callback)
 {
     let xmlHttp = new XMLHttpRequest()
@@ -237,6 +244,5 @@ function httpPostAsync(url, data, callback)
     }
     xmlHttp.open("POST", url, true) // true for asynchronous 
     xmlHttp.setRequestHeader("Content-type", "application/json")
-    // xmlHttp.send("data="+jsonString)
-    xmlHttp.send(JSON.stringify(data))
+    xmlHttp.send(data)
 }

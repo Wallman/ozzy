@@ -1,10 +1,19 @@
 /* Node */
-let express = require('express')
-let app = express()
+var express = require('express')
+var app = express()
 app.use(express.static(__dirname + '/public'))
-let bodyParser = require('body-parser')
+var bodyParser = require('body-parser')
 app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({ extended: false }))
+const MongoClient = require('mongodb').MongoClient
+var db
+
+MongoClient.connect('mongodb://138.68.162.165:27017', (err, database) => {
+  if (err) return console.log(err)
+  db = database
+  app.listen(8080, () => {
+    console.log('listening on 8080')
+  })
+})
 
 app.get('/', (req, res) => {
     res.sendFile( __dirname + "/public/index.html" )
@@ -15,19 +24,12 @@ app.get('/:hex', (req, res) => {
    // JSON.parse(hex)
 })
 
+// When user saves/share song
 app.post('/share', (req, res) => {
-    console.log(req)
-    //Prepare output in JSON format
-    response = {
-      data:req.body
-    }
-    console.log(response);
-    res.end(JSON.stringify(response))
-})
+    db.collection('song').insert(req.body, (err, result) => {
+      if (err) return console.log(err)
 
-var server = app.listen(8080, function () {
-    let host = server.address().address
-    let port = server.address().port
-   
-    console.log("Example app listening at http://%s:%s", host, port)
+      console.log('saved to database')
+      res.end() // eller res.end(return true or false)
+    })
 })
