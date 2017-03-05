@@ -2,12 +2,12 @@
 var express = require('express')
 var app = express()
 app.use(express.static(__dirname + '/public'))
-var bodyParser = require('body-parser')
+var bodyParser = require('body-parser') // Used to parse the POST-request
 app.use(bodyParser.json())
 const MongoClient = require('mongodb').MongoClient
 var db
 
-MongoClient.connect('mongodb://138.68.162.165:27017', (err, database) => {
+MongoClient.connect('mongodb://138.68.162.165:27017/ozzy', (err, database) => {
   if (err) return console.log(err)
   db = database
   app.listen(8080, () => {
@@ -28,8 +28,8 @@ app.get('/:hex', (req, res) => {
 app.post('/share', (req, res) => {
     db.collection('song').insert(req.body, (err, result) => {
       if (err) return console.log(err)
-
+      
       console.log('saved to database')
-      res.end() // eller res.end(return true or false)
+      res.end(result.insertedIds[0].toString()) // eller res.end(return true or false)
     })
 })

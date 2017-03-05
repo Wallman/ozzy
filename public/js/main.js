@@ -232,7 +232,11 @@ function share(){
   // for (var i = 0; i < _matrixes.length; ++i)
   //   if (_matrixes[i] !== undefined) song.matrixes[i] = _matrixes[i].matrix
   console.log(song)
-  httpPostAsync("/share", JSON.stringify(song), (res) => { console.log(res) })
+  httpPostAsync("/share", JSON.stringify(song), (res) => { if(res) updateURL(res) })
+}
+
+function updateURL(songId){
+  window.history.pushState({}, "Ozzy", "/" + songId)
 }
 // HTTP-POST for JSON
 function httpPostAsync(url, data, callback)
