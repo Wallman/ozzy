@@ -6,6 +6,7 @@ var bodyParser = require('body-parser') // Used to parse the POST-request
 app.use(bodyParser.json())
 const MongoClient = require('mongodb').MongoClient
 var db
+// app.use('/favicon.ico', express.static('/favicon.ico'))
 
 MongoClient.connect('mongodb://138.68.162.165:27017/ozzy', (err, database) => {
   if (err) return console.log(err)
@@ -16,20 +17,25 @@ MongoClient.connect('mongodb://138.68.162.165:27017/ozzy', (err, database) => {
 })
 
 app.get('/', (req, res) => {
-    res.sendFile( __dirname + "/public/index.html" )
+  res.sendFile( __dirname + "/public/index.html" )
 })
 
 app.get('/:hex', (req, res) => {
-    res.send(req.params.base64string)
-   // JSON.parse(hex)
+  console.log(req.params)
+  db.collection('song').find().toArray((err,results) => {
+    
+  })
+
+  res.send()
+  // JSON.parse(hex)
 })
 
 // When user saves/share song
 app.post('/share', (req, res) => {
-    db.collection('song').insert(req.body, (err, result) => {
-      if (err) return console.log(err)
-      
-      console.log('saved to database')
-      res.end(result.insertedIds[0].toString()) // eller res.end(return true or false)
-    })
+  db.collection('song').insert(req.body, (err, result) => {
+    if (err) return console.log(err)
+    
+    console.log('saved to database')
+    res.end(result.insertedIds[0].toString()) // eller res.end(return true or false)
+  })
 })
