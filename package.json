@@ -24,6 +24,7 @@
   "homepage": "https://github.com/Wallman/ozzy#readme",
   "dependencies": {
     "body-parser": "^1.17.0",
+    "ejs": "^2.5.6",
     "express": "^4.14.1",
     "mongodb": "^2.2.24"
   },

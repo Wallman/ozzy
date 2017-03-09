@@ -2,11 +2,12 @@
 var express = require('express')
 var app = express()
 app.use(express.static(__dirname + '/public'))
+app.set('view engine', 'ejs')
 var bodyParser = require('body-parser') // Used to parse the POST-request
 app.use(bodyParser.json())
-const MongoClient = require('mongodb').MongoClient
+var MongoClient = require('mongodb').MongoClient
+var ObjectID = require('mongodb').ObjectID
 var db
-// app.use('/favicon.ico', express.static('/favicon.ico'))
 
 MongoClient.connect('mongodb://138.68.162.165:27017/ozzy', (err, database) => {
   if (err) return console.log(err)
@@ -17,25 +18,29 @@ MongoClient.connect('mongodb://138.68.162.165:27017/ozzy', (err, database) => {
 })
 
 app.get('/', (req, res) => {
-  res.sendFile( __dirname + "/public/index.html" )
+  // res.sendFile( __dirname + "/public/index.html" )
+  res.render('index')
 })
 
-app.get('/:hex', (req, res) => {
-  console.log(req.params)
-  db.collection('song').find().toArray((err,results) => {
-    
-  })
-
-  res.send()
-  // JSON.parse(hex)
+app.get('/:songId', (req, res) => {
+  if(req.params.songId.length == 24){
+    var id = new ObjectID(req.params.songId)
+    db.collection('song').findOne({_id: id}, (err, result) => {
+      // res.render('index', {
+      //         testVar: 'Test Data'
+      //     })
+      // res.send()
+      res.send(index, JSON.stringify(result.matrixes))
+    })
+  }
 })
 
 // When user saves/share song
 app.post('/share', (req, res) => {
   db.collection('song').insert(req.body, (err, result) => {
     if (err) return console.log(err)
-    
+
     console.log('saved to database')
-    res.end(result.insertedIds[0].toString()) // eller res.end(return true or false)
+    res.send(result.insertedIds[0].toString()) // eller res.end(return true or false)
   })
 })

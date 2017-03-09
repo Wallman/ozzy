@@ -9,7 +9,7 @@ var _draggieTone = 8
 nx.onload = function(){
   try {
     checkBrowser()
-    init() 
+    init()
     registerSequencer()
   }
   catch (err) {
@@ -26,7 +26,7 @@ function checkBrowser(){
 }
 
 function init(){
-  // Start audio context, this is needed for sound to be turned on in mobile iOS environments 
+  // Start audio context, this is needed for sound to be turned on in mobile iOS environments
   // Uses StartAudioContext.js
   StartAudioContext(Tone.context)
 
@@ -94,7 +94,7 @@ function createListeners(){
 function registerBeat(row, col, matrix){
   var duration = matrix.col + "n"
   var start = "0:0:" + col / matrix.col * 16 // Start-beat in 16th notes.
-  
+
   let id = Tone.Transport.scheduleRepeat(function(time){
     if (matrix.synth === _drums) {
       matrix.synth.start(matrix.scale[row], time)
@@ -104,9 +104,9 @@ function registerBeat(row, col, matrix){
     }
   }, "1m", start)
   _soundEvents.push({
-    id: id, 
-    matrix: matrix, 
-    row: row, 
+    id: id,
+    matrix: matrix,
+    row: row,
     col: col
   })
 }
@@ -158,7 +158,7 @@ function playTone(synth, tone, duration){
   }
 }
 
-// changes the scale of matrix 1 (lead), matrix 2 (bass) and the draggieSynth. 
+// changes the scale of matrix 1 (lead), matrix 2 (bass) and the draggieSynth.
 // Utilizes the queue _scaleQueue which is declared in sound.js
 function changeScale(){
   let nextScale = _scaleQueue.shift() //takes out the first scale in _scaleQueue
@@ -229,8 +229,6 @@ function share(){
       rhythm: _matrixes[2].matrix
     }
   }
-  // for (var i = 0; i < _matrixes.length; ++i)
-  //   if (_matrixes[i] !== undefined) song.matrixes[i] = _matrixes[i].matrix
   console.log(song)
   httpPostAsync("/share", JSON.stringify(song), (res) => { if(res) updateURL(res) })
 }
@@ -242,11 +240,11 @@ function updateURL(songId){
 function httpPostAsync(url, data, callback)
 {
     let xmlHttp = new XMLHttpRequest()
-    xmlHttp.onreadystatechange = () => { 
+    xmlHttp.onreadystatechange = () => {
         if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
             callback(xmlHttp.responseText)
     }
-    xmlHttp.open("POST", url, true) // true for asynchronous 
+    xmlHttp.open("POST", url, true) // true for asynchronous
     xmlHttp.setRequestHeader("Content-type", "application/json")
     xmlHttp.send(data)
 }
