@@ -6,7 +6,7 @@ var $draggable = $('.draggable').draggabilly({
 })
 var _draggieTone = 8
 
-nx.onload = function(){
+$(function(){
   try {
     init()
     registerSequencer()
@@ -17,11 +17,12 @@ nx.onload = function(){
   }
 
   checkBrowser()
+  setMatrixSize()
   // savedSong comes from templated serverside html
   if(typeof savedSong != 'undefined'){
     loadSong(savedSong)
   }
-}
+})
 
 function checkBrowser(){
   let isChrome = !!window.chrome && !!window.chrome.webstore
@@ -60,8 +61,6 @@ function init(){
   matrix3.scale = _CMajDrums
   matrix3.colors.accent = "#FFBF19"
   matrix3.init()
-
-  setMatrixSize()
 }
 
 function loadSong(song){
@@ -213,6 +212,9 @@ function reset(){
 // GUI
 
 function setMatrixSize(){
+  console.log("setSize")
+  console.log("body width: " + document.body.clientWidth)
+  console.log("body height: " + document.body.clientHeight)
   _matrixes.forEach(function(element){
     element.resize(document.body.clientWidth * 0.7,document.body.clientHeight * 0.7)
   })
