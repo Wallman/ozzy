@@ -25,8 +25,17 @@ app.get('/:songId', (req, res) => {
   if(req.params.songId.length == 24){
     var id = new ObjectID(req.params.songId)
     db.collection('song').findOne({_id: id}, (err, result) => {
-      res.render('index', { matrixes: JSON.stringify(result.matrixes) })
+      if(err) console.log(err)
+      if(result){
+        res.render('index', { savedSong: JSON.stringify(result.matrixes) })
+      }
+      else{
+        res.render('cantfind')
+      }
     })
+  }
+  else{
+    res.render('cantfind')
   }
 })
 

@@ -8,7 +8,6 @@ var _draggieTone = 8
 
 nx.onload = function(){
   try {
-    checkBrowser()
     init()
     registerSequencer()
     createListeners()
@@ -17,8 +16,10 @@ nx.onload = function(){
     alert('Ett problem (error: "'+ err +'") uppstod när sidan laddes. Vänligen uppdatera sidan.')
   }
 
-  if(matrixes){
-    console.log(matrixes)
+  checkBrowser()
+  // savedSong comes from templated serverside html
+  if(typeof savedSong != 'undefined'){
+    loadSong(savedSong)
   }
 }
 
@@ -59,6 +60,27 @@ function init(){
   matrix3.scale = _CMajDrums
   matrix3.colors.accent = "#FFBF19"
   matrix3.init()
+
+  setMatrixSize()
+}
+
+function loadSong(song){
+  matrix1.matrix = savedSong.lead
+  matrix2.matrix = savedSong.bass
+  matrix3.matrix = savedSong.rhythm
+  matrix1.init()
+  matrix2.init()
+  matrix3.init()
+
+  _matrixes.forEach((element) =>{
+    for (var i = 0; i < element.matrix.length; i++) {
+      for (var j = 0; j < element.matrix[i].length; j++) {
+        if (element.matrix[i][j] == 1) {
+          registerBeat(j, i, element)
+        }
+      }
+    }
+  })
 }
 
 function createListeners(){
@@ -87,12 +109,16 @@ function createListeners(){
   // Add button listeners
   document.querySelector("#playBtn").addEventListener("click", startSong)
   document.querySelector("#stopBtn").addEventListener("click", stopSequence)
-  document.querySelector("#leadBtn").addEventListener("click", function(){ toggleMatrix("matrix1")})
-  document.querySelector("#bassBtn").addEventListener("click", function(){ toggleMatrix("matrix2")})
-  document.querySelector("#rhythmBtn").addEventListener("click", function(){ toggleMatrix("matrix3")})
+  document.querySelector("#leadBtn").addEventListener("click",    () => { toggleMatrix("matrix1")})
+  document.querySelector("#bassBtn").addEventListener("click",    () => { toggleMatrix("matrix2")})
+  document.querySelector("#rhythmBtn").addEventListener("click",  () => { toggleMatrix("matrix3")})
   document.querySelector("#scaleBtn").addEventListener("click", changeScale)
   document.querySelector("#resetBtn").addEventListener("click", reset)
   document.querySelector("#shareBtn").addEventListener("click", share)
+
+  window.onresize = function(event) {
+    setMatrixSize()
+  }
 }
 
 function registerBeat(row, col, matrix){
@@ -186,6 +212,12 @@ function reset(){
 
 // GUI
 
+function setMatrixSize(){
+  _matrixes.forEach(function(element){
+    element.resize(document.body.clientWidth * 0.7,document.body.clientHeight * 0.7)
+  })
+}
+
 function toggleMatrix(matrix){
   clearActive()
   document.querySelector(`#${matrix}`).classList.add("active")
@@ -225,18 +257,40 @@ function draggieStopSinging() {
 
 // Other
 function share(){
-  let song = {
-    created: new Date(),
-    matrixes: {
-      lead: _matrixes[0].matrix,
-      bass: _matrixes[1].matrix,
-      rhythm: _matrixes[2].matrix
+  if(hasNote(_matrixes)){
+    let song = {
+      created: new Date(),
+      matrixes: {
+        lead: _matrixes[0].matrix,
+        bass: _matrixes[1].matrix,
+        rhythm: _matrixes[2].matrix
+      }
     }
-  }
-  console.log(song)
-  httpPostAsync("/share", JSON.stringify(song), (res) => { if(res) updateURL(res) })
-}
 
+    httpPostAsync("/share", JSON.stringify(song), (result) => {
+      if(result) updateURL(result)
+      alert("Copy URL and share!") })
+  }
+  else{
+    alert("Song cannot be empty")
+  }
+}
+// Checks if the matrixes contain at least one note.
+function hasNote(matrixes){
+  let containsNote = false
+  matrixes.forEach( function(element){
+    for (var i = 0; i < element.matrix.length; i++) {
+      for (var j = 0; j < element.matrix[i].length; j++) {
+        if (element.matrix[i][j] == 1) {
+          containsNote = true
+          break
+        }
+      }
+    }
+  })
+  return containsNote
+}
+// Updates the browser URL without reloading the page.
 function updateURL(songId){
   window.history.pushState({}, "Ozzy", "/" + songId)
 }
