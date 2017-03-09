@@ -18,7 +18,6 @@ MongoClient.connect('mongodb://138.68.162.165:27017/ozzy', (err, database) => {
 })
 
 app.get('/', (req, res) => {
-  // res.sendFile( __dirname + "/public/index.html" )
   res.render('index')
 })
 
@@ -26,11 +25,7 @@ app.get('/:songId', (req, res) => {
   if(req.params.songId.length == 24){
     var id = new ObjectID(req.params.songId)
     db.collection('song').findOne({_id: id}, (err, result) => {
-      // res.render('index', {
-      //         testVar: 'Test Data'
-      //     })
-      // res.send()
-      res.send(index, JSON.stringify(result.matrixes))
+      res.render('index', { matrixes: JSON.stringify(result.matrixes) })
     })
   }
 })

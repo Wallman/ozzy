@@ -11,11 +11,15 @@ nx.onload = function(){
     checkBrowser()
     init()
     registerSequencer()
+    createListeners()
   }
   catch (err) {
     alert('Ett problem (error: "'+ err +'") uppstod när sidan laddes. Vänligen uppdatera sidan.')
   }
-  createListeners()
+
+  if(matrixes){
+    console.log(matrixes)
+  }
 }
 
 function checkBrowser(){
@@ -81,7 +85,7 @@ function createListeners(){
   $draggable.on('pointerUp', draggieStopSinging)
 
   // Add button listeners
-  document.querySelector("#playBtn").addEventListener("click", startSequence)
+  document.querySelector("#playBtn").addEventListener("click", startSong)
   document.querySelector("#stopBtn").addEventListener("click", stopSequence)
   document.querySelector("#leadBtn").addEventListener("click", function(){ toggleMatrix("matrix1")})
   document.querySelector("#bassBtn").addEventListener("click", function(){ toggleMatrix("matrix2")})
@@ -121,11 +125,11 @@ function deregisterBeat(row, col, matrix){
     }
   }
 }
-
-function startSequence(){
+// Starts the song.
+function startSong(){
   Tone.Transport.start("+0.1")
 }
-
+// Registers the GUI-sequencer in the Transport.
 function registerSequencer(){
   // Position comes in format Bars:Fourths:Sixteenths
   for (var i = 0; i < matrix1.matrix.length; i++) {

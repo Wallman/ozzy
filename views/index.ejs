@@ -34,6 +34,11 @@
             <p>Vänligen rotera din enhet för bästa upplevelse</p>
         </div>
 
+        <% if (typeof matrixes != 'undefined') { %>
+          <script>
+            var matrixes = <%- matrixes %>
+          </script>
+        <% } %>
         <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
         <script src="https://npmcdn.com/draggabilly@2.1/dist/draggabilly.pkgd.min.js"></script>
         <script src="js/frameworks/StartAudioContext.js"></script>
@@ -41,6 +46,5 @@
         <script src="js/frameworks/Tone.min.js"></script>
         <script src="js/sound.js"></script>
         <script src="js/main.js"></script>
-        <%  %>
     </body>
 </html>
