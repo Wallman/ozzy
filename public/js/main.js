@@ -6,7 +6,7 @@ var $draggable = $('.draggable').draggabilly({
 })
 var _draggieTone = 8
 
-$(function(){
+nx.onload = function(){
   try {
     init()
     registerSequencer()
@@ -17,12 +17,11 @@ $(function(){
   }
 
   checkBrowser()
-  setMatrixSize()
   // savedSong comes from templated serverside html
   if(typeof savedSong != 'undefined'){
     loadSong(savedSong)
   }
-})
+}
 
 function checkBrowser(){
   let isChrome = !!window.chrome && !!window.chrome.webstore
@@ -118,6 +117,9 @@ function createListeners(){
   window.onresize = function(event) {
     setMatrixSize()
   }
+  window.addEventListener("orientationchange", function() {
+    alert("the orientation of the device is now " + screen.orientation.angle)
+  })
 }
 
 function registerBeat(row, col, matrix){
@@ -212,6 +214,7 @@ function reset(){
 // GUI
 
 function setMatrixSize(){
+  //if screen.orientation.angle == 90 (landscape) or 0 (portrait)
   console.log("setSize")
   console.log("body width: " + document.body.clientWidth)
   console.log("body height: " + document.body.clientHeight)
