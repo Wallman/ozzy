@@ -12,9 +12,6 @@ var db
 MongoClient.connect('mongodb://138.68.162.165:27017/ozzy', (err, database) => {
   if (err) return console.log(err)
   db = database
-  app.listen(8080, () => {
-    console.log('listening on 8080')
-  })
 })
 
 app.get('/', (req, res) => {
@@ -47,4 +44,8 @@ app.post('/share', (req, res) => {
     console.log('saved to database')
     res.send(result.insertedIds[0].toString()) // eller res.end(return true or false)
   })
+})
+
+app.listen(8080, () => {
+  console.log('listening on 8080')
 })

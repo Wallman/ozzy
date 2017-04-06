@@ -6,7 +6,11 @@ var $draggable = $('.draggable').draggabilly({
 })
 var _draggieTone = 8
 
-nx.onload = function(){
+document.addEventListener('DOMContentLoaded', function () {
+    nx.onload = nxLoad
+}, false)
+
+var nxLoad = function() {
   try {
     init()
     registerSequencer()
@@ -114,9 +118,10 @@ function createListeners(){
   document.querySelector("#resetBtn").addEventListener("click", reset)
   document.querySelector("#shareBtn").addEventListener("click", share)
 
-  window.onresize = function(event) {
+  window.addEventListener('resize', function (event) {
     setMatrixSize()
-  }
+  }, false)
+
   window.addEventListener("orientationchange", function() {
     alert("the orientation of the device is now " + screen.orientation.angle)
   })
