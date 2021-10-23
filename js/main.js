@@ -19,8 +19,7 @@ nx.onload = function(){
 };
 
 function checkBrowser(){
-  let isChrome = !!window.chrome && !!window.chrome.webstore;
-  if(!isChrome){
+  if(!window.chrome){
     alert("This app works best with Google Chrome, some features may not work in other browsers.")
   }
 }
