@@ -1,4 +1,4 @@
-Demo: [ozzy.viktorsandstrom.se](http://ozzy.viktorsandstrom.se)
+Demo: [wallman.github.io](http://wallman.github.io)
 
 OBS: Utvecklad för att fungera bäst i Google Chrome.
 
